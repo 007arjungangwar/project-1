@@ -1,218 +1,726 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#111827" />
-  <title>Celsius → Fahrenheit | ML Converter</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#111827" />
+
+    <title>Celsius → Fahrenheit | ML Converter</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Flask static CSS -->
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
 </head>
 
 <body>
-  <div class="background-shape shape-one"></div>
-  <div class="background-shape shape-two"></div>
 
-  <main class="page-shell">
-    <section class="hero-card">
-      <div class="hero-copy">
-        <div class="eyebrow">
-          <span class="pulse-dot"></span>
-          TensorFlow Neural Network
-        </div>
+    <!-- Background -->
+    <div class="background-shape shape-one"></div>
+    <div class="background-shape shape-two"></div>
 
-        <h1>Temperature conversion,<br><span>predicted by ML.</span></h1>
 
-        <p class="hero-text">
-          Enter a Celsius value and let the trained neural network predict
-          the corresponding Fahrenheit temperature.
-        </p>
+    <main class="page-shell">
 
-        <div class="model-tags">
-          <span>Dense 4 → 4 → 1</span>
-          <span>Adam</span>
-          <span>800 epochs</span>
-        </div>
-      </div>
+        <!-- =====================================================
+             HERO + CONVERTER
+        ====================================================== -->
+        <section class="hero-card">
 
-      <div class="converter-card">
-        <div class="converter-head">
-          <div>
-            <p class="section-label">Temperature Converter</p>
-            <h2>Celsius to Fahrenheit</h2>
-          </div>
-          <div class="unit-badge">°C → °F</div>
-        </div>
+            <!-- Hero content -->
+            <div class="hero-copy">
 
-        <form id="converterForm">
-          <label for="celsius">Celsius temperature</label>
+                <div class="eyebrow">
+                    <span class="pulse-dot"></span>
+                    TensorFlow Neural Network
+                </div>
 
-          <div class="input-wrap">
-            <input
-              id="celsius"
-              name="celsius"
-              type="number"
-              step="any"
-              placeholder="Enter value"
-              autocomplete="off"
-              required
-            />
-            <span class="input-unit">°C</span>
-          </div>
+                <h1>
+                    Temperature conversion,
+                    <br>
+                    <span>predicted by ML.</span>
+                </h1>
 
-          <div class="quick-values" aria-label="Quick values">
-            <button type="button" class="chip" data-value="0">0°</button>
-            <button type="button" class="chip" data-value="20">20°</button>
-            <button type="button" class="chip" data-value="37">37°</button>
-            <button type="button" class="chip" data-value="100">100°</button>
-          </div>
+                <p class="hero-text">
+                    Enter a Celsius value and let the trained neural
+                    network predict the corresponding Fahrenheit
+                    temperature.
+                </p>
 
-          <button type="submit" class="predict-btn" id="predictBtn">
-            <span id="btnText">Predict Fahrenheit</span>
-            <span class="btn-arrow">→</span>
-          </button>
-        </form>
+                <div class="model-tags">
+                    <span>Dense 4 → 4 → 1</span>
+                    <span>Adam</span>
+                    <span>800 epochs</span>
+                </div>
 
-        <div id="message" class="message" role="status"></div>
-
-        <div id="resultPanel" class="result-panel hidden">
-          <div class="result-caption">Predicted temperature</div>
-
-          <div class="result-main">
-            <div class="temp-block">
-              <span id="cValue" class="temp-number">0</span>
-              <span class="temp-unit">°C</span>
             </div>
 
-            <div class="conversion-arrow">→</div>
 
-            <div class="temp-block result-highlight">
-              <span id="fValue" class="temp-number">32</span>
-              <span class="temp-unit">°F</span>
+            <!-- =================================================
+                 CONVERTER CARD
+            ================================================== -->
+            <div class="converter-card">
+
+                <div class="converter-head">
+
+                    <div>
+                        <p class="section-label">
+                            Temperature Converter
+                        </p>
+
+                        <h2>
+                            Celsius to Fahrenheit
+                        </h2>
+                    </div>
+
+                    <div class="unit-badge">
+                        °C → °F
+                    </div>
+
+                </div>
+
+
+                <!-- Form -->
+                <form id="converterForm">
+
+                    <label for="celsius">
+                        Celsius temperature
+                    </label>
+
+
+                    <div class="input-wrap">
+
+                        <input
+                            id="celsius"
+                            name="celsius"
+                            type="number"
+                            step="any"
+                            placeholder="Enter value"
+                            autocomplete="off"
+                            required
+                        />
+
+                        <span class="input-unit">
+                            °C
+                        </span>
+
+                    </div>
+
+
+                    <!-- Quick values -->
+                    <div
+                        class="quick-values"
+                        aria-label="Quick values"
+                    >
+
+                        <button
+                            type="button"
+                            class="chip"
+                            data-value="0"
+                        >
+                            0°
+                        </button>
+
+                        <button
+                            type="button"
+                            class="chip"
+                            data-value="20"
+                        >
+                            20°
+                        </button>
+
+                        <button
+                            type="button"
+                            class="chip"
+                            data-value="37"
+                        >
+                            37°
+                        </button>
+
+                        <button
+                            type="button"
+                            class="chip"
+                            data-value="100"
+                        >
+                            100°
+                        </button>
+
+                    </div>
+
+
+                    <!-- Predict button -->
+                    <button
+                        type="submit"
+                        class="predict-btn"
+                        id="predictBtn"
+                    >
+
+                        <span id="btnText">
+                            Predict Fahrenheit
+                        </span>
+
+                        <span class="btn-arrow">
+                            →
+                        </span>
+
+                    </button>
+
+                </form>
+
+
+                <!-- Error / status message -->
+                <div
+                    id="message"
+                    class="message"
+                    role="status"
+                ></div>
+
+
+                <!-- =================================================
+                     RESULT PANEL
+                ================================================== -->
+                <div
+                    id="resultPanel"
+                    class="result-panel hidden"
+                >
+
+                    <div class="result-caption">
+                        Predicted temperature
+                    </div>
+
+
+                    <div class="result-main">
+
+                        <!-- Celsius -->
+                        <div class="temp-block">
+
+                            <span
+                                id="cValue"
+                                class="temp-number"
+                            >
+                                0
+                            </span>
+
+                            <span class="temp-unit">
+                                °C
+                            </span>
+
+                        </div>
+
+
+                        <!-- Arrow -->
+                        <div class="conversion-arrow">
+                            →
+                        </div>
+
+
+                        <!-- Fahrenheit -->
+                        <div class="temp-block result-highlight">
+
+                            <span
+                                id="fValue"
+                                class="temp-number"
+                            >
+                                32
+                            </span>
+
+                            <span class="temp-unit">
+                                °F
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="result-footer">
+
+                        <span class="status-dot"></span>
+
+                        Prediction generated successfully
+
+                    </div>
+
+                </div>
+
             </div>
-          </div>
 
-          <div class="result-footer">
-            <span class="status-dot"></span>
-            Prediction generated successfully
-          </div>
-        </div>
-      </div>
-    </section>
+        </section>
 
-    <section class="info-grid">
-      <article class="info-card">
-        <div class="icon-box">01</div>
-        <h3>Enter a value</h3>
-        <p>Type any Celsius temperature or select one of the quick values.</p>
-      </article>
 
-      <article class="info-card">
-        <div class="icon-box">02</div>
-        <h3>Model predicts</h3>
-        <p>Your TensorFlow neural network processes the value on the server.</p>
-      </article>
+        <!-- =====================================================
+             INFORMATION CARDS
+        ====================================================== -->
+        <section class="info-grid">
 
-      <article class="info-card">
-        <div class="icon-box">03</div>
-        <h3>View the result</h3>
-        <p>The Fahrenheit prediction is displayed instantly on the page.</p>
-      </article>
-    </section>
+            <article class="info-card">
 
-    <footer>
-      <span>ML Temperature Converter</span>
-      <span class="footer-separator">•</span>
-      <span>TensorFlow + Flask</span>
-    </footer>
-  </main>
+                <div class="icon-box">
+                    01
+                </div>
 
-  <script>
-    const form = document.getElementById("converterForm");
-    const input = document.getElementById("celsius");
-    const resultPanel = document.getElementById("resultPanel");
-    const cValue = document.getElementById("cValue");
-    const fValue = document.getElementById("fValue");
-    const message = document.getElementById("message");
-    const predictBtn = document.getElementById("predictBtn");
-    const btnText = document.getElementById("btnText");
+                <h3>
+                    Enter a value
+                </h3>
 
-    document.querySelectorAll(".chip").forEach((chip) => {
-      chip.addEventListener("click", () => {
-        input.value = chip.dataset.value;
-        input.focus();
-      });
-    });
+                <p>
+                    Type any Celsius temperature or select one
+                    of the quick values.
+                </p>
 
-    form.addEventListener("submit", async (event) => {
-      event.preventDefault();
+            </article>
 
-      const celsius = input.value.trim();
-      if (celsius === "") {
-        showError("Please enter a Celsius value.");
-        return;
-      }
 
-      setLoading(true);
-      message.textContent = "";
-      resultPanel.classList.add("hidden");
+            <article class="info-card">
 
-      try {
-        const response = await fetch("/predict", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ celsius })
-        });
+                <div class="icon-box">
+                    02
+                </div>
 
-        const data = await response.json();
+                <h3>
+                    Model predicts
+                </h3>
 
-        if (!response.ok) {
-          throw new Error(data.error || "Prediction failed.");
+                <p>
+                    Your TensorFlow neural network processes
+                    the value on the server.
+                </p>
+
+            </article>
+
+
+            <article class="info-card">
+
+                <div class="icon-box">
+                    03
+                </div>
+
+                <h3>
+                    View the result
+                </h3>
+
+                <p>
+                    The Fahrenheit prediction is displayed
+                    instantly on the page.
+                </p>
+
+            </article>
+
+        </section>
+
+
+        <!-- =====================================================
+             FOOTER
+        ====================================================== -->
+        <footer>
+
+            <span>
+                ML Temperature Converter
+            </span>
+
+            <span class="footer-separator">
+                •
+            </span>
+
+            <span>
+                TensorFlow + Flask
+            </span>
+
+        </footer>
+
+    </main>
+
+
+    <!-- =========================================================
+         JAVASCRIPT
+    ========================================================== -->
+    <script>
+
+        // -------------------------------------------------------
+        // Get HTML elements
+        // -------------------------------------------------------
+
+        const form = document.getElementById("converterForm");
+
+        const input = document.getElementById("celsius");
+
+        const resultPanel =
+            document.getElementById("resultPanel");
+
+        const cValue =
+            document.getElementById("cValue");
+
+        const fValue =
+            document.getElementById("fValue");
+
+        const message =
+            document.getElementById("message");
+
+        const predictBtn =
+            document.getElementById("predictBtn");
+
+        const btnText =
+            document.getElementById("btnText");
+
+
+        // -------------------------------------------------------
+        // Quick value buttons
+        // -------------------------------------------------------
+
+        document
+            .querySelectorAll(".chip")
+            .forEach((chip) => {
+
+                chip.addEventListener("click", () => {
+
+                    input.value =
+                        chip.dataset.value;
+
+                    input.focus();
+
+                });
+
+            });
+
+
+        // -------------------------------------------------------
+        // Form submission
+        // -------------------------------------------------------
+
+        form.addEventListener(
+            "submit",
+            async (event) => {
+
+                event.preventDefault();
+
+
+                // Get Celsius value
+                const celsius =
+                    input.value.trim();
+
+
+                // Check empty input
+                if (celsius === "") {
+
+                    showError(
+                        "Please enter a Celsius value."
+                    );
+
+                    return;
+                }
+
+
+                // Convert to number
+                const celsiusNumber =
+                    Number(celsius);
+
+
+                // Check valid number
+                if (!Number.isFinite(celsiusNumber)) {
+
+                    showError(
+                        "Please enter a valid Celsius temperature."
+                    );
+
+                    return;
+                }
+
+
+                // Loading state
+                setLoading(true);
+
+                message.textContent = "";
+
+                message.className = "message";
+
+                resultPanel.classList.add("hidden");
+
+
+                try {
+
+                    // ------------------------------------------------
+                    // Send request to Flask
+                    // ------------------------------------------------
+
+                    const response = await fetch(
+                        "/predict",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json",
+
+                                "Accept":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+                                celsius:
+                                    celsiusNumber
+                            })
+                        }
+                    );
+
+
+                    // ------------------------------------------------
+                    // Read server response as TEXT first
+                    //
+                    // This prevents:
+                    //
+                    // JSON.parse:
+                    // unexpected end of data
+                    // ------------------------------------------------
+
+                    const responseText =
+                        await response.text();
+
+
+                    console.log(
+                        "HTTP Status:",
+                        response.status
+                    );
+
+                    console.log(
+                        "Server Response:",
+                        responseText
+                    );
+
+
+                    // ------------------------------------------------
+                    // Check for empty response
+                    // ------------------------------------------------
+
+                    if (!responseText.trim()) {
+
+                        throw new Error(
+                            `Server returned an empty response ` +
+                            `(HTTP ${response.status}).`
+                        );
+
+                    }
+
+
+                    // ------------------------------------------------
+                    // Convert response text to JSON
+                    // ------------------------------------------------
+
+                    let data;
+
+                    try {
+
+                        data =
+                            JSON.parse(responseText);
+
+                    } catch (jsonError) {
+
+                        console.error(
+                            "Invalid JSON received from server:",
+                            responseText
+                        );
+
+                        throw new Error(
+                            `Server did not return valid JSON ` +
+                            `(HTTP ${response.status}).`
+                        );
+
+                    }
+
+
+                    // ------------------------------------------------
+                    // Handle Flask errors
+                    // ------------------------------------------------
+
+                    if (!response.ok) {
+
+                        throw new Error(
+                            data.error ||
+                            "Prediction failed."
+                        );
+
+                    }
+
+
+                    // ------------------------------------------------
+                    // Validate returned values
+                    // ------------------------------------------------
+
+                    if (
+                        data.celsius === undefined ||
+                        data.fahrenheit === undefined
+                    ) {
+
+                        throw new Error(
+                            "Invalid response received from prediction service."
+                        );
+
+                    }
+
+
+                    // ------------------------------------------------
+                    // Display Celsius
+                    // ------------------------------------------------
+
+                    cValue.textContent =
+                        formatNumber(
+                            data.celsius
+                        );
+
+
+                    // ------------------------------------------------
+                    // Display Fahrenheit
+                    // ------------------------------------------------
+
+                    fValue.textContent =
+                        formatNumber(
+                            data.fahrenheit
+                        );
+
+
+                    // ------------------------------------------------
+                    // Show result
+                    // ------------------------------------------------
+
+                    resultPanel.classList.remove(
+                        "hidden"
+                    );
+
+                    resultPanel.classList.add(
+                        "show"
+                    );
+
+
+                    // Remove animation class
+                    setTimeout(() => {
+
+                        resultPanel.classList.remove(
+                            "show"
+                        );
+
+                    }, 500);
+
+
+                } catch (error) {
+
+                    // ------------------------------------------------
+                    // Display error
+                    // ------------------------------------------------
+
+                    console.error(
+                        "Prediction error:",
+                        error
+                    );
+
+
+                    showError(
+                        error.message ||
+                        "Unable to connect to the prediction service."
+                    );
+
+
+                } finally {
+
+                    // ------------------------------------------------
+                    // Stop loading
+                    // ------------------------------------------------
+
+                    setLoading(false);
+
+                }
+
+            }
+        );
+
+
+        // -------------------------------------------------------
+        // Format number
+        // -------------------------------------------------------
+
+        function formatNumber(value) {
+
+            const number =
+                Number(value);
+
+
+            if (Number.isNaN(number)) {
+
+                return value;
+
+            }
+
+
+            if (Number.isInteger(number)) {
+
+                return number;
+
+            }
+
+
+            return number.toFixed(2);
+
         }
 
-        cValue.textContent = formatNumber(data.celsius);
-        fValue.textContent = formatNumber(data.fahrenheit);
 
-        resultPanel.classList.remove("hidden");
-        resultPanel.classList.add("show");
+        // -------------------------------------------------------
+        // Show error message
+        // -------------------------------------------------------
 
-        setTimeout(() => {
-          resultPanel.classList.remove("show");
-        }, 500);
+        function showError(text) {
 
-      } catch (error) {
-        showError(error.message || "Unable to connect to the prediction service.");
-      } finally {
-        setLoading(false);
-      }
-    });
+            message.textContent =
+                text;
 
-    function formatNumber(value) {
-      const number = Number(value);
-      if (Number.isNaN(number)) return value;
-      return Number.isInteger(number) ? number : number.toFixed(2);
-    }
+            message.className =
+                "message error";
 
-    function showError(text) {
-      message.textContent = text;
-      message.className = "message error";
-    }
+        }
 
-    function setLoading(isLoading) {
-      predictBtn.disabled = isLoading;
 
-      if (isLoading) {
-        btnText.textContent = "Predicting...";
-        predictBtn.classList.add("loading");
-      } else {
-        btnText.textContent = "Predict Fahrenheit";
-        predictBtn.classList.remove("loading");
-      }
-    }
-  </script>
+        // -------------------------------------------------------
+        // Loading button state
+        // -------------------------------------------------------
+
+        function setLoading(isLoading) {
+
+            predictBtn.disabled =
+                isLoading;
+
+
+            if (isLoading) {
+
+                btnText.textContent =
+                    "Predicting...";
+
+                predictBtn.classList.add(
+                    "loading"
+                );
+
+            } else {
+
+                btnText.textContent =
+                    "Predict Fahrenheit";
+
+                predictBtn.classList.remove(
+                    "loading"
+                );
+
+            }
+
+        }
+
+    </script>
+
 </body>
+
 </html>
